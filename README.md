@@ -1,6 +1,6 @@
 # Taller: POO y modificadores de acceso en Python
 
->Nota: este es mi intento por resolver el taller con los conocimientos previos que tengo. El branch se llama "Guessing" porque creo que llegaré a necesitar adivinar algunas respuestas. Tomaré este intento como una prueba diagnóstica antes de estudiar correctamente los puntos del taller.
+>Nota: este es mi intento por resolver el taller con los conocimientos previos que tengo. El branch se llama "guessing" porque creo que llegaré a necesitar adivinar algunas respuestas. Tomaré este intento como una prueba diagnóstica antes de estudiar correctamente los puntos del taller.
 
 ## Instrucciones
 
@@ -208,6 +208,20 @@ Parte A. Conceptos y lectura de código
             def saldo(self, value):
                 # Validar no-negativo
                 ______
+       
+    >Respuesta:
+
+        @property
+        def saldo(self):
+            return self._saldo
+
+        @saldo.setter
+        def saldo(self, value):
+            # Validar no-negativo
+            if value < 0:
+                self._saldo = 0
+            else:
+                self._saldo = value
 
 12) Propiedad de solo lectura
 
@@ -217,7 +231,10 @@ Parte A. Conceptos y lectura de código
             def __init__(self, temperatura_c):
                 self._c = float(temperatura_c)
 
-            # Define aquí la propiedad temperatura_f: F = C * 9/5 + 32
+            @property
+            def temperatura_f(self):
+                F = self._c * 9/5 + 32
+                return F
 
 
     Escribe la propiedad.
@@ -230,7 +247,18 @@ Parte A. Conceptos y lectura de código
             def __init__(self, nombre):
                 self.nombre = nombre
 
-            # Implementa property para nombre
+        # Implementa property para nombre
+
+    >Respuesta:
+        
+        @property
+        def nombre(self):
+            return self.nombre
+
+        @nombre.setter
+        def nombre(self, value):
+            if type(self.nombre) != str:
+                raise TypeError("El nombre debe ser tipo str")
 
 14) Encapsulación de colección
 
@@ -245,6 +273,18 @@ Parte A. Conceptos y lectura de código
 
             # Crea una propiedad 'items' que retorne una tupla inmutable con el contenido
 
+    >Respuesta:
+
+        @property
+        def items(self):
+            return self.items
+
+        @items.setter
+        def items(self, value):
+            items = tuple(value)
+            return items
+
+        
 ## Parte C. Diseño y refactor
 
 15) Refactor a encapsulación
@@ -258,9 +298,29 @@ Parte A. Conceptos y lectura de código
 
     Escribe la versión con @property.
 
+    >Respuesta:
+
+        class Motor:
+            def __init__(self, velocidad):
+                self._velocidad = 0
+                self.velocidad = velocidad
+
+        @property
+        def velocidad(self):
+            return self._velocidad
+
+        @velocidad.setter
+        def velocidad(self, value):
+            if 0 < velocidad <200:
+                self._velocidad = value
+            else:
+                raise TypeError("El valor de la velocidad debe estar entre 0 y 200")
+
 16) Elección de convención
 
     Explica con tus palabras cuándo usarías _atributo frente a __atributo en una API pública de una librería.
+
+    >El ``_attributo`` lo utilizaría para información que pueda llegar a querer a editar o compartir, pero no por accidente. El ``__atributo`` lo utilizaría para guardar información interna en una clase, la cual no sea necesaria de compartir.
 
 17) Detección de fuga de encapsulación
 
@@ -275,9 +335,22 @@ Parte A. Conceptos y lectura de código
 
     Propón una corrección.
 
+    >El problema es que no se está guardando la información en una variable accesible. Para solucionarlo, la función puede utilizar @property para que se guarde en un nuevo atributo accesible de la clase antes de pasarlo a _data:
+
+        class Buffer:
+            def __init__(self, data):
+                self._data = list(data)
+                self.data = data
+            @property
+            def get_data(self):
+                return self._data
+            @get_data.setter
+            def get_data(self, value):
+                self._data = value
+
 18) Diseño con herencia y mangling
 
-¿Dónde fallará esto y cómo lo arreglas?
+    ¿Dónde fallará esto y cómo lo arreglas?
 
         class A:
             def __init__(self):
@@ -285,7 +358,25 @@ Parte A. Conceptos y lectura de código
 
         class B(A):
             def get(self):
-                return self.__x
+                return self.__x # <======= aquí falla
+
+    >Solución:
+
+        class A:
+            def __init__(self):
+                self.__x = 1
+
+        class B(A):
+            def __init__(self):
+                self.x = None
+            
+            @property
+            def get(self):
+                return self.__x 
+
+            @get.setter
+            def get(self, value):
+                self.x = value
 
 19) Composición y fachada
 
@@ -305,6 +396,25 @@ Parte A. Conceptos y lectura de código
 
             # Expón un método 'guardar' que delegue en el repositorio,
             # pero NO expongas _dump ni __repo.
+        
+    >Solución
+
+        class _Repositorio:
+            def __init__(self):
+                self._datos = {}
+            def guardar(self, k, v):
+                self._datos[k] = v
+            def _dump(self):
+                return dict(self._datos)
+
+        class Servicio:
+            def __init__(self):
+                self.__repo = _Repositorio()   # private repository inside
+
+            def guardar(self, k, v):
+                self.__repo.guardar(k, v)
+
+
 
 20) Mini-kata
 
@@ -319,3 +429,28 @@ Parte A. Conceptos y lectura de código
     método “privado” __log() que imprima "tick" cuando se incrementa
 
     Muestra un uso básico con dos incrementos y la lectura final.
+
+    >Código:
+
+        class ContadorSeguro:
+            def __init__(self):
+                _n = 0
+
+            def inc(self):
+                _n += 1
+
+            @property
+            def n(self):
+                return _n
+
+            @property
+            def __log(self):
+                if inc():
+                    print("tick")
+
+    >Uso:
+
+        c = ContadorSeguro()
+        c.inc()
+        c.inc()
+        c.n
