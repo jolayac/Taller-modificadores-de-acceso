@@ -3,6 +3,6 @@ __Juan Sebastián Olaya Castañeda__
 
 En este repositorios hay dos branches:
 
-``gessing`` es mi prueba diagnóstica; un intento por hacer las cosas sin buscar mucho en fuentes externas.
+[``estudio``](https://github.com/jolayac/Taller-modificadores-de-acceso/tree/estudio): es el desarroyo del taller buscando ayuda en diferentes fuentes y robando el código.
 
-``estudio`` es el desarroyo del taller buscando ayuda en diferentes fuentes y robando el código.
+[``gessing``](https://github.com/jolayac/Taller-modificadores-de-acceso/tree/guessing): es mi prueba diagnóstica; un intento por hacer las cosas sin buscar mucho en fuentes externas.
