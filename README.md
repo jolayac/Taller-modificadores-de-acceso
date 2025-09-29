@@ -195,29 +195,29 @@ Parte A. Conceptos y lectura de código
 
     Completa para que saldo nunca sea negativo.
 
-    class Cuenta:
-        def __init__(self, saldo):
-            self._saldo = 0
-            self.saldo = saldo
+        class Cuenta:
+            def __init__(self, saldo):
+                self._saldo = 0
+                self.saldo = saldo
 
-        @property
-        def saldo(self):
-            ______
+            @property
+            def saldo(self):
+                ______
 
-        @saldo.setter
-        def saldo(self, value):
-            # Validar no-negativo
-            ______
+            @saldo.setter
+            def saldo(self, value):
+                # Validar no-negativo
+                ______
 
 12) Propiedad de solo lectura
 
     Convierte temperatura_f en un atributo de solo lectura que se calcula desde temperatura_c.
 
-    class Termometro:
-        def __init__(self, temperatura_c):
-            self._c = float(temperatura_c)
+        class Termometro:
+            def __init__(self, temperatura_c):
+                self._c = float(temperatura_c)
 
-        # Define aquí la propiedad temperatura_f: F = C * 9/5 + 32
+            # Define aquí la propiedad temperatura_f: F = C * 9/5 + 32
 
 
     Escribe la propiedad.
@@ -226,24 +226,24 @@ Parte A. Conceptos y lectura de código
 
     Haz que nombre sea siempre str. Si asignan algo que no sea str, lanza TypeError.
 
-    class Usuario:
-        def __init__(self, nombre):
-            self.nombre = nombre
+        class Usuario:
+            def __init__(self, nombre):
+                self.nombre = nombre
 
-        # Implementa property para nombre
+            # Implementa property para nombre
 
 14) Encapsulación de colección
 
     Expón una vista de solo lectura de una lista interna.
 
-    class Registro:
-        def __init__(self):
-            self.__items = []
+        class Registro:
+            def __init__(self):
+                self.__items = []
 
-        def add(self, x):
-            self.__items.append(x)
+            def add(self, x):
+                self.__items.append(x)
 
-        # Crea una propiedad 'items' que retorne una tupla inmutable con el contenido
+            # Crea una propiedad 'items' que retorne una tupla inmutable con el contenido
 
 ## Parte C. Diseño y refactor
 
@@ -251,9 +251,9 @@ Parte A. Conceptos y lectura de código
 
     Refactoriza para evitar acceso directo al atributo y validar que velocidad sea entre 0 y 200.
 
-    class Motor:
-        def __init__(self, velocidad):
-            self.velocidad = velocidad  # refactor aquí
+        class Motor:
+            def __init__(self, velocidad):
+                self.velocidad = velocidad  # refactor aquí
 
 
     Escribe la versión con @property.
@@ -266,11 +266,11 @@ Parte A. Conceptos y lectura de código
 
     ¿Qué problema hay aquí?
 
-    class Buffer:
-        def __init__(self, data):
-            self._data = list(data)
-        def get_data(self):
-            return self._data
+        class Buffer:
+            def __init__(self, data):
+                self._data = list(data)
+            def get_data(self):
+                return self._data
 
 
     Propón una corrección.
@@ -279,32 +279,32 @@ Parte A. Conceptos y lectura de código
 
 ¿Dónde fallará esto y cómo lo arreglas?
 
-    class A:
-        def __init__(self):
-            self.__x = 1
+        class A:
+            def __init__(self):
+                self.__x = 1
 
-    class B(A):
-        def get(self):
-            return self.__x
+        class B(A):
+            def get(self):
+                return self.__x
 
 19) Composición y fachada
 
     Completa para exponer solo un método seguro de un objeto interno.
 
-    class _Repositorio:
-        def __init__(self):
-            self._datos = {}
-        def guardar(self, k, v):
-            self._datos[k] = v
-        def _dump(self):
-            return dict(self._datos)
+        class _Repositorio:
+            def __init__(self):
+                self._datos = {}
+            def guardar(self, k, v):
+                self._datos[k] = v
+            def _dump(self):
+                return dict(self._datos)
 
-    class Servicio:
-        def __init__(self):
-            self.__repo = _Repositorio()
+        class Servicio:
+            def __init__(self):
+                self.__repo = _Repositorio()
 
-        # Expón un método 'guardar' que delegue en el repositorio,
-        # pero NO expongas _dump ni __repo.
+            # Expón un método 'guardar' que delegue en el repositorio,
+            # pero NO expongas _dump ni __repo.
 
 20) Mini-kata
 
