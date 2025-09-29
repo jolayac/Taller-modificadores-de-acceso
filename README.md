@@ -1,6 +1,8 @@
 # Taller: POO y modificadores de acceso en Python
 
 >Nota: este es mi intento por resolver el taller con los conocimientos previos que tengo. El branch se llama "guessing" porque creo que llegaré a necesitar adivinar algunas respuestas. Tomaré este intento como una prueba diagnóstica antes de estudiar correctamente los puntos del taller.
+>
+>Tengo otra branch, [``estudio``](https://github.com/jolayac/Taller-modificadores-de-acceso/tree/estudio), con la que estudio los temas después de terminar este intento.
 
 ## Instrucciones
 
