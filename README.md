@@ -4,7 +4,8 @@
 __Juan Sebastián Olaya Castañeda__
 
 >Nota: Este branch es para estudiar y probar el código del taller. Lo considero como el verdadero desarrollo del taller.
->Ya hice un intento por resolver el taller con los conocimientos previos que tengo; se llama guessing.
+> 
+>Ya hice un intento por resolver el taller con los conocimientos previos que tengo: [``guessing``](https://github.com/jolayac/Taller-modificadores-de-acceso/tree/guessing).
 
 ## Instrucciones
 
