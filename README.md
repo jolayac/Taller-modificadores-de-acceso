@@ -265,13 +265,15 @@ Parte A. Conceptos y lectura de código
     >Respuesta:
         
         @property
-        def nombre(self):
+        def get(self):
             return self.nombre
 
-        @nombre.setter
-        def nombre(self, value):
-            if type(self.nombre) != str:
+        @get.setter
+        def get(self, value):
+            if type(value) != str:
                 raise TypeError("El nombre debe ser tipo str")
+            else:
+                self.nombre = value
 
 14) Encapsulación de colección
 
@@ -290,7 +292,7 @@ Parte A. Conceptos y lectura de código
 
         @property
         def items(self):
-            return self.items
+            return self.__items
 
         @items.setter
         def items(self, value):

@@ -98,12 +98,25 @@ class M:
 
 
 m = M()
-print(hasattr(m, '_step'),      # True 
+print(hasattr(m, '_step'),      # True
     hasattr(m, '__tick'),       # False
     hasattr(m, '_M__tick'))     # True
 ''''''
 hasattr (corto para has attribute).Return whether the object has an attribute with the given name.
 This is done by calling getattr(obj, name) and catching AttributeError.
+'''
+
+# 9) Acceso a atributos
+'''
+class S:
+    def __init__(self):
+        self.__data = [1, 2]
+    def size(self):
+        return len(self.__data)
+s = S()
+# Accede a __data (solo para comprobar), sin modificar el código de la clase:
+# Escribe una línea que obtenga la lista usando name mangling y la imprima.
+print(s._S__data)
 '''
 
 # 10) Comprensión de dir y mangling
@@ -120,4 +133,90 @@ d = D()
 internos = [n for n in dir(d) if 'a' in n]
 for n in internos:
     print(n)
+'''
+
+# 11) Completar propiedad con validación
+'''
+class Cuenta:
+    def __init__(self, saldo):
+        self._saldo = 0
+        self.saldo = saldo
+
+
+    @property
+    def saldo(self):
+        return self._saldo
+
+
+    @saldo.setter
+    def saldo(self, value):
+        # Validar no-negativo
+        if value < 0:
+            self._saldo = 0
+        else:
+            self._saldo = value
+
+c = Cuenta(-12)
+print(c.saldo)
+'''
+
+# 12) Propiedad de solo lectura
+'''
+class Termometro:
+    def __init__(self, temperatura_c):
+        self._c = float(temperatura_c)
+
+    @property
+    def temperatura_f(self):
+        F = self._c * 9/5 + 32
+        return F
+
+
+t = Termometro(32)
+print(t.temperatura_f)
+'''
+
+# 13) Invariante con tipo
+'''
+class Usuario:
+    def __init__(self, nombre):
+        self.nombre = nombre
+    # Implementa property para nombre
+
+    @property
+    def get(self):
+        return self.nombre
+
+    @get.setter
+    def get(self, value):
+        if type(value) != str:
+            raise TypeError("El nombre debe ser tipo str")
+        else:
+            self.nombre = value
+
+
+u = Usuario(input(f"ingrese su nombre\n>"))
+print(u.nombre)
+'''
+
+# 14) Encapsulación de colección
+'''
+class Registro:
+    def __init__(self):
+        self.__items = []
+
+    def add(self, x):
+        self.__items.append(x)
+
+    @property
+    def items(self):
+        return self.__items
+
+    @items.setter
+    def items(self, value):
+        items = tuple(value)
+        return items
+
+r = Registro()
+print(r.items)
 '''
