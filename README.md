@@ -65,11 +65,11 @@ Parte A. Conceptos y lectura de código
 
     a) El prefijo _ impide el acceso desde fuera de la clase.
 
-    >Falso. Entiendo que una sugestión que indica que lo que lleva el prefijo _ es para uso interno de una clase. A pesar de eso, es posible acceder desde afuera de ellas.
+    >Falso. Entiendo que una sugestión que indica que lo que lleva el prefijo _ es para uso interno de clases o subclases. A pesar de eso, es posible acceder desde afuera de ellas.
 
     b) El prefijo __ hace imposible acceder al atributo.
 
-    >Falso. Imposible no es. __nombre se convierte a _\<Clase\>__nombre, haciendo posible su acceso utiluizando esta converción.
+    >Falso. Imposible no es. __nombre se convierte a _\<Clase\>__nombre, haciendo posible su acceso utiluizando esta converción. Se usa cuando no se quiere que un atributo o método se pueda modificar directamente. Es para uso interno
     
     c) El name mangling depende del nombre de la clase.
     
@@ -111,7 +111,7 @@ Parte A. Conceptos y lectura de código
 
     ¿Cuál es la salida?
 
-    >No sé lo que hace ``super()``. PPuede que de un error ya que se está tratando de retornar el mismo dato de dos maneras diferentes en la misma línea ``(self.__v, self._Base__v)``
+    >``(2, 1)``. Se está llamando a ``self.__v`` (transformado por el mangling como ``self_Sub__v``) y a ``self._Base__v``. Los dos atributos tienen nombres diferentes, por eso no hay un error.
 
 6) Identifica el error
 
@@ -160,7 +160,9 @@ Parte A. Conceptos y lectura de código
 
     ¿Qué imprime y por qué?
 
-    >True False True. Confirma que ``_step``, ``_M__tick`` existen y ``__tick`` no.
+    >True False True. Confirma que ``_step``, ``_M__tick`` existen y ``__tick`` no. 
+    >
+    >``hasattr`` (corto para has attribute) pregunta si el atributo existe en el objeto.
 
 9) Acceso a atributos privados
 
